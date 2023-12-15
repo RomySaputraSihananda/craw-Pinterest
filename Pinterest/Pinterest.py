@@ -39,10 +39,16 @@ class Pinterest:
         for data in datas:
             self.__result['data'].append({
                 "id": data["id"],
-                "link_pin": f'{self.__BASE_URL}/pin/{data["id"]}',
-                "title": data["title"],
                 "created_at": self.__datetime.execute(data["created_at"]),
-                "link": data["link"]
+                "domain": data["domain"],
+                "link_pin": f'{self.__BASE_URL}/pin/{data["id"]}',
+                "link": data["link"],
+                "title": data["title"],
+                "description": data["description"],
+                "media": {
+                    "images": data["images"],
+                    "videos": data["videos"]
+                }
             })
 
     def search(self, keyword: str, **kwargs):
