@@ -2,8 +2,11 @@
 
 # craw-Pinterest
 
-pytz==2023.3.post1
-Requests==2.31.0
+## Requirements
+
+- **Python >= 3.11.4**
+- **Requests >= 2.31.0**
+- **pytz >= 2023.3.post1**
 
 ```bash
 python main.py --keyword=Freya --size=1 --output=data
