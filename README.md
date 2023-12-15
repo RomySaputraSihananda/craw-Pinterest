@@ -2,6 +2,8 @@
 
 # craw-Pinterest
 
+![](https://raw.githubusercontent.com/RomySaputraSihananda/RomySaputraSihananda/main/images/GBZL-XYXIAAm_lk.jpeg)
+
 ## Requirements
 
 - **Python >= 3.11.4**
@@ -34,6 +36,8 @@ python main.py --keyword=Freya --size=1 --output=data
 | --keyword |  -k   | keywords to search for images | --provinsi=Freya |  Freya  |
 | --size    |  -s   |      size of image data       | --size=10        |   10    |
 | --output  |  -o   |     json file output path     | --output=data    |  data   |
+
+## Sample Output
 
 ```json
 {
