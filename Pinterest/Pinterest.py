@@ -1,7 +1,7 @@
 import requests
 from requests import Response
 from json import dumps
-from Pinterest.helpers import Datetime
+from Pinterest.helpers import Datetime, logging
 
 class Pinterest:
     def __init__(self) -> None:
@@ -37,6 +37,8 @@ class Pinterest:
         self.__result['size'] = len(datas)
 
         for data in datas:
+            logging.info(f'Extract data with id {data["id"]}')
+
             self.__result['data'].append({
                 "id": data["id"],
                 "created_at": self.__datetime.execute(data["created_at"]),
@@ -54,12 +56,16 @@ class Pinterest:
     def search(self, keyword: str, **kwargs):
         size = kwargs.get('size', 10)
 
-        response: Response = requests.get(f'{self.__BASE_URL}/resource/BaseSearchResource/get', params=self.__build_params(keyword, size)).json()
+        logging.info(f'searching with key {keyword}')
+
+        response: Response = requests.get(f'{self.__BASE_URL}/resource/BaseSearchResource/get', params=self.__build_params(keyword, size))
+
+        if(response.status_code != 200): return logging.error(f'failed searching with key {keyword}')
 
         self.__result['date_now']: str = self.__datetime.now()
         self.__result['keyword']: str = keyword
 
-        self.__filter_data(response['resource_response']['data']['results'])
+        self.__filter_data(response.json()['resource_response']['data']['results'])
 
         return self.__result
 
