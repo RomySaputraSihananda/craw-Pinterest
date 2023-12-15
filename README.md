@@ -2,6 +2,9 @@
 
 # craw-Pinterest
 
+pytz==2023.3.post1
+Requests==2.31.0
+
 ```bash
 python main.py --keyword=Freya --size=1 --output=data
 ```
