@@ -8,6 +8,21 @@
 - **Requests >= 2.31.0**
 - **pytz >= 2023.3.post1**
 
+## Installation
+
+```sh
+# Clonig Repository
+git clone https://github.com/romysaputrasihananda/craw-Pinterest
+
+# Change Directory
+cd craw-Pinterest
+
+# Install Requirement
+pip install -r requirements.txt
+```
+
+## Example Usages
+
 ```bash
 python main.py --keyword=Freya --size=1 --output=data
 ```
