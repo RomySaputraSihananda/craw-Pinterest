@@ -4,6 +4,8 @@
 
 ![](https://raw.githubusercontent.com/RomySaputraSihananda/RomySaputraSihananda/main/images/GBYJUrAaIAAUKCb.jpeg)
 
+Proyek ini menggunakan API Pinterest untuk melakukan web scraping dan mengambil gambar berdasarkan keyword pencarian. Dengan memanfaatkan fungsionalitas API Pinterest, program ini dapat secara otomatis mengumpulkan gambar yang sesuai dengan keyword yang dimasukkan oleh pengguna. Pengguna dapat menjalankan program, memberikan kata kunci pencarian, dan mendapatkan kumpulan gambar yang relevan dari Pinterest. Pastikan untuk mematuhi kebijakan penggunaan API Pinterest dan hak cipta gambar yang diambil dalam pengembangan proyek ini.
+
 ## Requirements
 
 - **Python >= 3.11.4**
