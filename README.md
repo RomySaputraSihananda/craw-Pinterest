@@ -27,6 +27,14 @@ pip install -r requirements.txt
 python main.py --keyword=Freya --size=1 --output=data
 ```
 
+### Flags
+
+| Flag      | Alias |          Description          | Example          | Default |
+| :-------- | :---: | :---------------------------: | :--------------- | :-----: |
+| --keyword |  -k   | keywords to search for images | --provinsi=Freya |  Freya  |
+| --size    |  -s   |      size of image data       | --size=10        |   10    |
+| --output  |  -o   |     json file output path     | --output=data    |  data   |
+
 ```json
 {
   "date_now": "2023-12-15T23:30:27",
