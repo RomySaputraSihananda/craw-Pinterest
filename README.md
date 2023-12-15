@@ -2,7 +2,7 @@
 
 # craw-Pinterest
 
-![](https://raw.githubusercontent.com/RomySaputraSihananda/RomySaputraSihananda/main/images/GBZL-XYXIAAm_lk.jpeg)
+![](https://raw.githubusercontent.com/RomySaputraSihananda/RomySaputraSihananda/main/images/GBYJUrAaIAAUKCb.jpeg)
 
 ## Requirements
 
