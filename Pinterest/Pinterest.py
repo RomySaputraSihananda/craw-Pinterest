@@ -61,10 +61,11 @@ class Pinterest:
 
         self.__filter_data(response['resource_response']['data']['results'])
 
-        with open('test_data2.json', 'w') as file:
-            file.write(dumps(self.__result, indent=2, ensure_ascii=False))
+        return self.__result
 
 # testing
 if(__name__ == '__main__'):
     pins = Pinterest = Pinterest()
     pins.search('freya', size=5)
+    # with open('test_data2.json', 'w') as file:
+    #     file.write(dumps(self.__result, indent=2, ensure_ascii=False))
