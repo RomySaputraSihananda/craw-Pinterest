@@ -28,16 +28,17 @@ pip install -r requirements.txt
 ## Example Usages
 
 ```bash
-python main.py --keyword=Freya --size=1 --output=data
+python main.py --keyword=Freya --size=10 --download=True --output=data
 ```
 
 ### Flags
 
-| Flag      | Alias |          Description          | Example          | Default |
-| :-------- | :---: | :---------------------------: | :--------------- | :-----: |
-| --keyword |  -k   | keywords to search for images | --provinsi=Freya |  Freya  |
-| --size    |  -s   |      size of image data       | --size=10        |   10    |
-| --output  |  -o   |     json file output path     | --output=data    |  data   |
+| Flag       | Alias |          Description          | Example         | Default |
+| :--------- | :---: | :---------------------------: | :-------------- | :-----: |
+| --keyword  |  -k   | keywords to search for images | --keyword=Freya |  Freya  |
+| --size     |  -s   |      size of image data       | --size=10       |   10    |
+| --download |  -d   |        download image         | --download=True |  False  |
+| --output   |  -o   |     json file output path     | --output=data   |  data   |
 
 ## Sample Output
 

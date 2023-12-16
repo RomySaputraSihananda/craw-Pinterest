@@ -1,6 +1,11 @@
 import requests
+import os
+import time
+
 from requests import Response
 from json import dumps
+from threading import Thread
+
 from Pinterest.helpers import Datetime, logging
 
 class Pinterest:
@@ -33,11 +38,13 @@ class Pinterest:
             })
         } 
     
-    def __filter_data(self, datas: list) -> None:
+    def __filter_data(self, datas: list, download: bool, output: str) -> None:
         self.__result['size'] = len(datas)
 
         for data in datas:
             logging.info(f'Extract data with id {data["id"]}')
+
+            if(download): Thread(target=self.__download, args=(data["images"]["orig"]["url"], output)).start()
 
             self.__result['data'].append({
                 "id": data["id"],
@@ -53,25 +60,44 @@ class Pinterest:
                 }
             })
 
+    def __download(self, url: str, output: str) -> None:
+        response: Response = requests.get(url)
+
+        logging.info(f'Download image with name {url.split("/")[-1]}')
+
+        if(not os.path.exists(output)):
+            os.makedirs(output)
+
+        with open(f'{output}/{url.split("/")[-1]}', 'wb') as file:
+            file.write(response.content)
+
     def search(self, keyword: str, **kwargs):
         size = kwargs.get('size', 10)
+        download = kwargs.get('download', False)
+        output = kwargs.get('output', 'data')
 
         logging.info(f'searching with key {keyword}')
 
-        response: Response = requests.get(f'{self.__BASE_URL}/resource/BaseSearchResource/get', params=self.__build_params(keyword, size))
+        response: Response = requests.get(f'{self.__BASE_URL}/resource/BaseSearchResource/get', params=self.__build_params(keyword, size if size < 250 else 250))
 
         if(response.status_code != 200): return logging.error(f'failed searching with key {keyword}')
 
         self.__result['date_now']: str = self.__datetime.now()
         self.__result['keyword']: str = keyword
 
-        self.__filter_data(response.json()['resource_response']['data']['results'])
+        self.__filter_data(response.json()['resource_response']['data']['results'], download, f'{output}/{keyword}')
 
         return self.__result
 
 # testing
 if(__name__ == '__main__'):
+    start = time.perf_counter()
+
     pins = Pinterest = Pinterest()
-    pins.search('freya', size=5)
+    pins.search('freya', size=250)
     # with open('test_data2.json', 'w') as file:
     #     file.write(dumps(self.__result, indent=2, ensure_ascii=False))
+
+    print(time.perf_counter() - start)
+
+# pagging berdasarkan bookmarks
