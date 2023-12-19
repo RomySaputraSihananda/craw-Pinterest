@@ -5,6 +5,7 @@ import time
 from requests import Response
 from json import dumps
 from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 
 from Pinterest.helpers import Datetime, logging
 
@@ -41,24 +42,30 @@ class Pinterest:
     def __filter_data(self, datas: list, download: bool, output: str) -> None:
         self.__result['size'] = len(datas)
 
-        for data in datas:
-            logging.info(f'Extract data with id {data["id"]}')
+        with ThreadPoolExecutor() as executor:
+            data_processed = list(executor.map(self.__process_data, datas, [download] * len(datas), [output] * len(datas)))
 
-            if(download): Thread(target=self.__download, args=(data["images"]["orig"]["url"], output)).start()
+        self.__result['data'] = data_processed
 
-            self.__result['data'].append({
-                "id": data["id"],
-                "created_at": self.__datetime.execute(data["created_at"]),
-                "domain": data["domain"],
-                "link_pin": f'{self.__BASE_URL}/pin/{data["id"]}',
-                "link": data["link"],
-                "title": data["title"],
-                "description": data["description"],
-                "media": {
-                    "images": data["images"],
-                    "videos": data["videos"]
-                }
-            })
+    def __process_data(self, data: dict, download: bool, output: str) -> None:
+        logging.info(f'Extract data with id {data["id"]}')
+
+        if(download): 
+            self.__download(data["images"]["orig"]["url"], output)
+
+        self.__result['data'].append({
+            "id": data["id"],
+            "created_at": self.__datetime.execute(data["created_at"]),
+            "domain": data["domain"],
+            "link_pin": f'{self.__BASE_URL}/pin/{data["id"]}',
+            "link": data["link"],
+            "title": data["title"],
+            "description": data["description"],
+            "media": {
+                "images": data["images"],
+                "videos": data["videos"]
+            }
+        })
 
     def __download(self, url: str, output: str) -> None:
         response: Response = requests.get(url)
